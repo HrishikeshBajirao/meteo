@@ -1,5 +1,5 @@
 export const sendResponse = (res, code, contentType, content) => {
     res.statusCode = code
     res.setHeader('Content-Type', contentType)
-    res.end(JSON.stringify(content))
+    res.end(content)
 }
