@@ -26,5 +26,8 @@ export async function sendWeatherData(res, cityName){
         sendResponse(res, 200, 'application/json', content)
     } catch (err) {
         console.log(`Server down: ${err}`)
+        sendResponse(res, 500, 'application/json', {
+            "error":"Internal Server Error"
+        })
     }
 }

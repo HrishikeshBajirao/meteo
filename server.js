@@ -15,15 +15,14 @@ const server = http.createServer(async (req, res) => {
     //query params
     if(urlObj.pathname === '/api' && req.method === 'GET'){
         
-        const cityName = queryParams.city
+        const cityName = queryParams.city?.trim()
 
         //handle empty city name request - 400 Bad request
-        if(cityName === ''){
-            sendResponse(res, 400, 'appication/json', {
+        if(!cityName){
+            return sendResponse(res, 400, 'application/json', {
                 message: "Bad Request - City Name cannot be empty!"
             })
         }
-        
         await sendWeatherData(res, cityName)
 
     }//path params
