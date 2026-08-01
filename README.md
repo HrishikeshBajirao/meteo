@@ -12,31 +12,22 @@ Built from scratch using Node.js' native HTTP module, the project serves as a le
 
 - 🌍 Search weather by city name
 - 📍 Automatic geocoding
-- 🌡️ Current weather retrieval
-- 💨 Wind speed & direction
-- 💧 Relative humidity
-- 🌧️ Precipitation data
+- 🌤️ Current weather information
 - 📦 Clean JSON API responses
-- ⚠️ Error handling
+- ⚠️ Basic error handling
 - 🔐 Environment variable configuration
 
 ---
 
-## Planned
+### Planned
 
-- 🌤️ 7-day weather forecasts
-- 🕒 Hourly forecasts
-- 📈 Historical weather
 - ⚡ Response caching
-- 🌎 Reverse geocoding
-- 📊 Interactive weather dashboard
-- 🛰️ Ephemeris & astronomical data
-- 🌙 Sunrise / Sunset
-- 🌌 Moon phase
-- ☀️ Solar position
-- ⭐ Planet visibility
-- 📍 User favorites
-- 🔑 Authentication
+- 🚀 Express.js migration
+- 🌐 Simple frontend
+- 📅 Weather forecasts
+- 📊 Data visualizations
+- 💾 Search history & favorites
+- 🌙 Astronomical & ephemeris data
 
 ---
 
@@ -58,15 +49,47 @@ GET /api/city/Mumbai
 
 ```json
 {
-    "lat": 19.07,
-    "lon": 72.88,
+    "lat": 18.9733536,
+    "lon": 72.82810491917377,
+    "time": {
+        "value": "2026-08-01T13:45",
+        "unit": "iso8601"
+    },
+    "interval": {
+        "value": 900,
+        "unit": "seconds"
+    },
     "temperature_2m": {
-        "value": 30.5,
+        "value": 27.8,
         "unit": "°C"
     },
+    "precipitation": {
+        "value": 0.2,
+        "unit": "mm"
+    },
+    "rain": {
+        "value": 0.1,
+        "unit": "mm"
+    },
     "relative_humidity_2m": {
-        "value": 82,
+        "value": 84,
         "unit": "%"
+    },
+    "is_day": {
+        "value": 0,
+        "unit": ""
+    },
+    "wind_speed_10m": {
+        "value": 26.6,
+        "unit": "km/h"
+    },
+    "wind_direction_10m": {
+        "value": 261,
+        "unit": "°"
+    },
+    "pressure_msl": {
+        "value": 1002.3,
+        "unit": "hPa"
     }
 }
 ```
@@ -79,8 +102,8 @@ GET /api/city/Mumbai
 - JavaScript (ES6+)
 - Native HTTP Module
 - Fetch API
-- OpenWeather Geocoding API
-- Open-Meteo API
+- OpenWeather Geocoding API - https://openweathermap.org/api/geocoding-api?collection=other
+- Open-Meteo API - https://open-meteo.com/en/docs
 - dotenv
 
 ---
