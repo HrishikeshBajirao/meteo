@@ -16,31 +16,28 @@ const server = http.createServer(async (req, res) => {
     const queryParams = Object.fromEntries(urlObj.searchParams)
     res.setHeader('Access-Control-Allow-Origin', '*')
 
-    if(req.url === '/api'){
 
-            //query params
-        if(urlObj.pathname === '/api' && req.method === 'GET'){
-            
-            const cityName = queryParams.city?.trim()
+    //query params
+    if(urlObj.pathname === '/api'){
+        
+        const cityName = queryParams.city?.trim()
 
-            //handle empty city name request - 400 Bad request
-            if(!cityName){
-                return sendResponse(res, 400, 'application/json', {
-                    message: "Bad Request - City Name cannot be empty!"
-                })
-            }
-            await sendWeatherData(res, cityName)
-
-        }//path params
-        else if(req.url.startsWith('/api/city') && req.method === 'GET'){
-
-            const cityName = req.url.split('/').pop();
-            await sendWeatherData(res, cityName)
-
+        //handle empty city name request - 400 Bad request
+        if(!cityName){
+            return sendResponse(res, 400, 'application/json', {
+                message: "Bad Request - City Name cannot be empty!"
+            })
         }
+        await sendWeatherData(res, cityName)
+
+    }//path params
+    else if(req.url.startsWith('/api/city')){
+
+        const cityName = req.url.split('/').pop();
+        await sendWeatherData(res, cityName)
 
     }//serve static if req.url does not start with /api
-    else if(!req.url.startsWith('/api') && req.method === 'GET'){
+    else if(req.method === 'GET'){
 
         const pathToResource = path.join('public', req.url === '/' ? 'index.html' : req.url)
         const ext = path.extname(pathToResource)
@@ -56,7 +53,6 @@ const server = http.createServer(async (req, res) => {
                 return sendResponse(res, 500, 'text/html', `<html><h1>Server Error: ${err.code}</h1></html>`)
             }
         }
-
     }
 });
 
