@@ -1,0 +1,80 @@
+export const getCoordinatesApiResponse = [
+  {
+    name: 'Mumbai',
+    local_names: {
+      pl: 'Mumbaj',
+      uk: 'Мумбаї',
+      sd: 'ممبئي',
+      ia: 'Mumbai',
+      ps: 'ممبای',
+      bn: 'মুম্বই',
+      ur: 'ممبئی',
+      eo: 'Mumbajo',
+      ru: 'Мумбаи',
+      ja: 'ムンバイ',
+      gu: 'મુંબઈ',
+      ta: 'மும்பை',
+      ml: 'മുംബൈ',
+      de: 'Mumbai',
+      hi: 'मुंबई',
+      hr: 'Mumbai',
+      fa: 'مومبای',
+      io: 'Mumbai',
+      es: 'Bombay',
+      oc: 'Mumbai',
+      kn: 'ಮುಂಬೈ ನಗರ',
+      ks: 'بَمبَے',
+      ne: 'मुम्बई',
+      fr: 'Mumbai',
+      zh: '孟买',
+      te: 'ముంబై',
+      sr: 'Мумбај',
+      sk: 'Bombaj',
+      lt: 'Mumbajus',
+      en: 'Mumbai',
+      mr: 'मुंबई शहर जिल्हा',
+      he: 'מומבאי',
+      ar: 'مومباي',
+      cs: 'Bombaj',
+      bg: 'Мумбай'
+    },
+    lat: 18.9733536,
+    lon: 72.82810491917377,
+    country: 'IN',
+    state: 'Maharashtra'
+  }
+]
+
+export const getTemperatureApiResponse = {
+  latitude: 19.015816,
+  longitude: 72.86982,
+  generationtime_ms: 0.11491775512695312,
+  utc_offset_seconds: 0,
+  timezone: 'GMT',
+  timezone_abbreviation: 'GMT',
+  elevation: 5,
+  current_units: {
+    time: 'iso8601',
+    interval: 'seconds',
+    temperature_2m: '°C',
+    precipitation: 'mm',
+    rain: 'mm',
+    relative_humidity_2m: '%',
+    is_day: '',
+    wind_speed_10m: 'km/h',
+    wind_direction_10m: '°',
+    pressure_msl: 'hPa'
+  },
+  current: {
+    time: '2026-08-01T13:00',
+    interval: 900,
+    temperature_2m: 28.3,
+    precipitation: 0.2,
+    rain: 0.1,
+    relative_humidity_2m: 79,
+    is_day: 1,
+    wind_speed_10m: 25,
+    wind_direction_10m: 261,
+    pressure_msl: 1001.6
+  }
+}
