@@ -138,6 +138,18 @@ city=Mumbai
 
 ---
 
+## 📈 Development Statistics
+
+This project is actively maintained and tracked using GitHub and WakaTime.
+
+<p align="center">
+
+[![GitHub last commit](https://img.shields.io/github/last-commit/HrishikeshBajirao/meteo?style=for-the-badge)](https://github.com/HrishikeshBajirao/atlas/commits/main)
+
+[![WakaTime](https://wakatime.com/badge/user/7864a36e-34fb-462c-a73d-d8c410aed4dc/project/c833d946-27aa-4b9d-9ab0-d623ea74a488.svg?style=for-the-badge)](https://wakatime.com/badge/user/7864a36e-34fb-462c-a73d-d8c410aed4dc/project/c833d946-27aa-4b9d-9ab0-d623ea74a488)
+
+</p>
+
 ## Installation
 
 ```bash
