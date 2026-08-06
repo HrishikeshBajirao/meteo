@@ -1,5 +1,4 @@
 import { getCoordinates, getTemperature } from '../data/getData.js'
-import { sendResponse } from './sendResponse.js'
 
 export async function sendWeatherData(res, cityName){
     try{
@@ -23,11 +22,9 @@ export async function sendWeatherData(res, cityName){
 
         const content = {lat, lon, ...weatherObj}
         
-        sendResponse(res, 200, 'application/json', content)
+        res.status(200).json(content);
     } catch (err) {
         console.log(`Server down: ${err}`)
-        sendResponse(res, 500, 'application/json', {
-            "error":"Internal Server Error"
-        })
+        res.status(500).json({error:"Internal Server Error"});
     }
 }
