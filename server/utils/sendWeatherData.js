@@ -22,7 +22,7 @@ export async function sendWeatherData(res, cityName){
         )
 
         const content = {location, lat, lon, ...weatherObj}
-        console.log(content)
+        
         res.status(200).json(content);
     } catch (err) {
         console.log(`Server down: ${err}`)
