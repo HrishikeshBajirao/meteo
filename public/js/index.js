@@ -1,18 +1,17 @@
+import { getCurrentByCityName } from './getData.js'
+
 const weatherCont = document.getElementById('weather-container')
 const formEl = document.getElementById('location-form')
 
-const response = await fetch("/api/city/mumbai")
-const data = await response.json();
-
-const handleFormSubmit = (e) => {
+const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(formEl);
     const cityName = formData.get("city")
-    console.log(cityName)
-}
 
-weatherCont.innerHTML = Object.entries(data).map(([key, value]) => {
+    const data = await getCurrentByCityName(cityName)
+
+    weatherCont.innerHTML = Object.entries(data).map(([key, value]) => {
     if(key === "time" || key === "interval")
         return
     if(typeof value !== "object"){
@@ -23,5 +22,6 @@ weatherCont.innerHTML = Object.entries(data).map(([key, value]) => {
     }
     return `<p>${key}: ${value}</p>`
 }).join("")
+}
 
 formEl.addEventListener('submit', handleFormSubmit)

@@ -1,0 +1,11 @@
+export async function getCurrentByCityName(cityname){
+    const response = await fetch("/api/current/submit", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({cityname})
+    })
+    const data = await response.json();
+    return data;
+}
