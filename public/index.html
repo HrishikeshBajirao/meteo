@@ -8,6 +8,11 @@
     </head>
     <body>
         <h1 id="title">Weather Today</h1>
+        <form id="location-form" method="POST" action="/api/submit">
+            <label for="city-input">Search City</label>
+            <input id="city-input" type="text" name="city" required />
+            <button type="submit">Search</button>
+        </form>
         <div id="weather-container">
             
         </div>

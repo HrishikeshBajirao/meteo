@@ -16,8 +16,19 @@ const server = http.createServer(async (req, res) => {
     const queryParams = Object.fromEntries(urlObj.searchParams)
     res.setHeader('Access-Control-Allow-Origin', '*')
 
+    // //handle psot requests
+    // if(req.url === '/api/submit' && req.method === 'POST'){
 
-    //query params
+    //     let body = '';
+    //     for await (const chunk of req){
+    //         body += chunk
+    //     }
+    //     const data = Object.fromEntries(new URLSearchParams(body));
+    //     const cityName = data.city
+
+    //     await sendWeatherData(res, cityName)
+
+    // }//query params
     if(urlObj.pathname === '/api'){
         
         const cityName = queryParams.city?.trim()
