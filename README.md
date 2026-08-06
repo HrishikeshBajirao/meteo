@@ -1,12 +1,10 @@
-# ☁️ Nimbus
+# ☁️ Meteo
 
-Nimbus is a full-stack weather application that provides a clean REST API and a modern React-based user interface for retrieving and visualizing weather information.
+Meteo is a full-stack weather application that provides a clean REST API and a modern React-based user interface for retrieving and visualizing weather information.
 
 Originally built from scratch using Node.js' native HTTP module, the project has since been migrated to Express.js and React to provide a scalable full-stack architecture while continuing to serve as a learning project focused on backend engineering, frontend development, API integration, and software architecture.
 
 ---
-
-## Features
 
 ## Features
 
@@ -54,52 +52,45 @@ GET /api/current?city=Mumbai
 GET /api/current/city/Mumbai
 ```
 
+### Search Weather (Form Submission)
+
+```http
+POST /api/submit
+```
+
+**Content-Type**
+
+```text
+application/x-www-form-urlencoded
+```
+
+**Body**
+
+```text
+city=Mumbai
+```
+
 ### Example Response
 
 ```json
 {
-    "lat": 18.9733536,
-    "lon": 72.82810491917377,
-    "time": {
-        "value": "2026-08-01T13:45",
-        "unit": "iso8601"
+  "location": "Mumbai",
+  "lat": 18.973,
+  "lon": 72.828,
+  "current": {
+    "temperature": {
+      "value": 27.8,
+      "unit": "°C"
     },
-    "interval": {
-        "value": 900,
-        "unit": "seconds"
+    "humidity": {
+      "value": 84,
+      "unit": "%"
     },
-    "temperature_2m": {
-        "value": 27.8,
-        "unit": "°C"
-    },
-    "precipitation": {
-        "value": 0.2,
-        "unit": "mm"
-    },
-    "rain": {
-        "value": 0.1,
-        "unit": "mm"
-    },
-    "relative_humidity_2m": {
-        "value": 84,
-        "unit": "%"
-    },
-    "is_day": {
-        "value": 0,
-        "unit": ""
-    },
-    "wind_speed_10m": {
-        "value": 26.6,
-        "unit": "km/h"
-    },
-    "wind_direction_10m": {
-        "value": 261,
-        "unit": "°"
-    },
-    "pressure_msl": {
-        "value": 1002.3,
-        "unit": "hPa"
+    "wind_speed": {
+      "value": 26.6,
+      "unit": "km/h"
     }
+  }
 }
 ```
 
@@ -152,7 +143,7 @@ GET /api/current/city/Mumbai
 ```bash
 git clone <repo>
 
-cd nimbus
+cd meteo
 
 npm install
 
@@ -163,6 +154,6 @@ npm start
 
 ## Future Vision
 
-Nimbus is intended to evolve into a complete weather and environmental information platform.
+Meteo is intended to evolve into a complete weather and environmental information platform.
 
 The long-term vision includes weather forecasts, atmospheric conditions, interactive visualizations, climate statistics, astronomical observations, ephemeris calculations, celestial events, and other Earth & space related datasets presented through a clean, interactive interface.
