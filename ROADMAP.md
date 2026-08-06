@@ -14,82 +14,86 @@
 
 ---
 
-## v0.2.0 🚧 Better Backend
+## v0.2.0 ✅ Full Stack Foundation
 
+- Express.js migration
+- React frontend
+- Client & server project structure
+- Controller-based backend architecture
+- Modern responsive UI
+- Weather search form
+- HTTP POST form submission
+- Dynamic weather card rendering
+
+---
+
+## v0.3.0 🚧 Better User Experience
+
+- Location autocomplete
+- Debounced search
+- Loading skeletons
+- Better error pages
+- Improved mobile experience
+
+---
+
+## v0.4.0 🚧 Better Backend
+
+- In-memory caching
 - Request validation
-- Consistent error responses
-- Response caching (in-memory)
-- Better API documentation
-- Code cleanup & refactoring
-- Improved logging
+- Better logging
+- API documentation
+- Rate limiting
 
 ---
 
-## v0.3.0 🚧 Express.js Rewrite
-
-- Migrate from native HTTP module to Express.js
-- Express Router
-- Middleware
-- Better route organization
-- Centralized error handling
-- Improved project structure
-
----
-
-## v0.4.0 🚧 Frontend
-
-- Simple HTML/CSS interface
-- Search weather by city
-- Dynamic weather display
-- Loading state
-- Error messages
-- Responsive design
-
----
-
-## v0.5.0 🚧 More Weather Data
+## v0.5.0 🚧 Forecasts
 
 - 7-day forecast
 - Hourly forecast
-- Weather conditions & icons
+- Weather alerts
 - Feels-like temperature
 - UV Index
-- Air Quality Index
 
 ---
 
-## v0.6.0 🚧 Data Visualization
+## v0.6.0 🚧 Visualization
 
 - Temperature charts
+- Rainfall charts
+- Wind charts
 - Humidity charts
-- Wind speed visualization
 - D3.js integration
 
 ---
 
-## v0.7.0 🚧 Full Stack
+## v0.7.0 🚧 Weather Intelligence
 
-- PostgreSQL database
-- Search history
-- Favorite cities
-- User authentication
-- RESTful CRUD API
+- Air Quality Index
+- Pollen
+- Visibility
+- Pressure trends
+- Climate statistics
 
 ---
 
-## v0.8.0
+## v0.8.0 🚧 Astronomy
 
-- Sunrise & sunset
+- Sunrise & Sunset
 - Moon phase
+- Moon illumination
 - Solar position
-- Twilight calculations
+- Twilight
+- Golden hour
 
 ---
 
-## v0.9.0
+## v0.9.0 🚧 Ephemeris
 
 - Planet visibility
 - ISS tracking
+- Meteor showers
+- Eclipses
 - Celestial events
 - Ephemeris API
 

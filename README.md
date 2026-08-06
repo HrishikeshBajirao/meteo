@@ -1,34 +1,43 @@
 # ☁️ Nimbus
 
-Nimbus is a lightweight Node.js backend service that aggregates weather data from external APIs and exposes a clean, developer-friendly REST API.
+Nimbus is a full-stack weather application that provides a clean REST API and a modern React-based user interface for retrieving and visualizing weather information.
 
-Built from scratch using Node.js' native HTTP module, the project serves as a learning exercise in backend development, API integration, and scalable project architecture.
+Originally built from scratch using Node.js' native HTTP module, the project has since been migrated to Express.js and React to provide a scalable full-stack architecture while continuing to serve as a learning project focused on backend engineering, frontend development, API integration, and software architecture.
 
 ---
 
 ## Features
 
+## Features
+
 ### Current
 
-- 🌍 Search weather by city name
+- 🌍 Search weather by city
+- 📝 React-based search form
+- 📤 Form submission using HTTP POST
 - 📍 Automatic geocoding
-- 🌤️ Current weather information
-- 📦 Clean JSON API responses
-- ⚠️ Basic error handling
+- 🌤️ Current weather conditions
+- 📄 Dynamic weather card rendering
+- ⚛️ React frontend
+- 🚀 Express.js backend
+- 📦 REST API
+- 📱 Responsive user interface
+- ⚠️ Error handling
 - 🔐 Environment variable configuration
 
 ---
 
 ### Planned
 
-- ⚡ Response caching
-- 🚀 Express.js migration
-- 🌐 Simple frontend
-- 📅 Weather forecasts
-- 📊 Data visualizations
+- ⚡ In-memory response caching
+- 🔎 Location autocomplete
+- 📅 7-day & hourly forecasts
+- 📊 Interactive D3.js visualizations
 - 💾 Search history & favorites
-- 🌙 Astronomical & ephemeris data
-
+- 🌫️ Air quality data
+- ☀️ UV index
+- 🌙 Astronomical & ephemeris information
+- 🛰️ Satellite & celestial event data
 ---
 
 ## API Endpoints
@@ -36,13 +45,13 @@ Built from scratch using Node.js' native HTTP module, the project serves as a le
 ### Query Parameter
 
 ```
-GET /api?city=Mumbai
+GET /api/current?city=Mumbai
 ```
 
 ### Path Parameter
 
 ```
-GET /api/city/Mumbai
+GET /api/current/city/Mumbai
 ```
 
 ### Example Response
@@ -98,26 +107,43 @@ GET /api/city/Mumbai
 
 ## Technologies Used
 
-- Node.js
+### Frontend
+
+- React
 - JavaScript (ES6+)
-- Native HTTP Module
-- Fetch API
-- OpenWeather Geocoding API - https://openweathermap.org/api/geocoding-api?collection=other
-- Open-Meteo API - https://open-meteo.com/en/docs
+- Vite
+- CSS
+
+### Backend
+
+- Node.js
+- Express.js
+- REST APIs
+
+### External APIs
+
+- OpenWeather Geocoding API
+- Open-Meteo API
+
+### Other
+
 - dotenv
 
 ---
 
 ## Skills Demonstrated
 
+- Full-stack application architecture
 - REST API design
-- API aggregation
+- Express.js routing
+- Controller-based backend architecture
+- React component development
+- API integration
 - Asynchronous programming
 - Environment variable management
-- Modular backend architecture
+- Responsive UI development
 - JSON response design
 - Error handling
-- HTTP request routing
 
 ---
 
@@ -137,4 +163,6 @@ npm start
 
 ## Future Vision
 
-Nimbus is intended to evolve beyond a simple weather API wrapper into a complete environmental and astronomical information platform featuring weather forecasts, atmospheric conditions, interactive visualizations, and ephemeris data.
+Nimbus is intended to evolve into a complete weather and environmental information platform.
+
+The long-term vision includes weather forecasts, atmospheric conditions, interactive visualizations, climate statistics, astronomical observations, ephemeris calculations, celestial events, and other Earth & space related datasets presented through a clean, interactive interface.
