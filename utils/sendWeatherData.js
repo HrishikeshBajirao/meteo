@@ -11,6 +11,7 @@ export async function sendWeatherData(res, cityName){
 
         const lat = coords[0].lat
         const lon = coords[0].lon
+        const location = coords[0].name
             
         const weatherData = await getTemperature(lat, lon)
 
@@ -20,8 +21,8 @@ export async function sendWeatherData(res, cityName){
             ])
         )
 
-        const content = {lat, lon, ...weatherObj}
-        
+        const content = {location, lat, lon, ...weatherObj}
+        console.log(content)
         res.status(200).json(content);
     } catch (err) {
         console.log(`Server down: ${err}`)
