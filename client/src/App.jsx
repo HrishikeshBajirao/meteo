@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { getCurrentByCityName } from './utils/getData.js'
+import { getCurrentByCityName } from './utils/getWeather.js'
 import './index.css'
 
 function App() {

@@ -1,35 +1,43 @@
-import { sendWeatherData } from '../utils/sendWeatherData.js'
+import { sendWeatherData } from '../services/weatherService.js'
 
-export async function cityQueryParamReq(req, res){
+export async function locationQueryParamReq(req, res, next){
+    
+    try {
 
-    const cityName = req.query.city.trim()
-    //handle empty city name request - 400 Bad request
-    if(!cityName || typeof cityName !== 'string'){
-        res.status(400).json({message: "Bad Request - Invalid or empty cityName"})
+        const weatherData = await sendWeatherData(req.query.location)
+        res.status(200).json(weatherData)
+
+    } catch (err) {
+
+        next(err)
+
     }
-    //send data
-    await sendWeatherData(res, cityName)
-
 }
 
-export async function cityPathParamReq(req, res){
+export async function locationPathParamReq(req, res, next){
+    
+    try {
 
-    const cityName = req.params.cityname
-    //handle empty city name request - 400 Bad request
-    if(!cityName || typeof cityName !== 'string'){
-        res.status(400).json({message: "Bad Request - Invalid or empty cityName"})
+        const weatherData = await sendWeatherData(req.params.location)
+        res.status(200).json(weatherData)
+
+    } catch (err) {
+
+        next(err)
+
     }
-    //send data
-    await sendWeatherData(res, cityName)
-
 }
 
-export async function postSubmitReq(req, res){
-    const cityName = req.body.cityname
-    //handle empty city name request - 400 Bad request
-    if(!cityName || typeof cityName !== 'string'){
-        res.status(400).json({message: "Bad Request - Invalid or empty cityName"})
+export async function postSubmitReq(req, res, next){
+    
+    try {
+
+        const weatherData = await sendWeatherData(req.body.location)
+        res.status(200).json(weatherData)
+
+    } catch (err) {
+
+        next(err)
+
     }
-    //send data
-    await sendWeatherData(res, cityName)
 }
