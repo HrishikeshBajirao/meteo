@@ -113,7 +113,7 @@ export const getAutocompleteSuggestions = async (str) => {
 
         const error = new Error("Unable to reach Geoapify Autocomplete service")
         error.statusCode = 502
-        error.code = 'GEOAPIFY_AUTOCOPMLETE_SERVICE_UNAVAILABLE'
+        error.code = 'GEOAPIFY_AUTOCOMPLETE_SERVICE_UNAVAILABLE'
 
         throw error
 
