@@ -42,6 +42,7 @@ body {
 
 .search-card {
   margin-bottom: 20px;
+  position: relative;
 }
 
 .search-card h1 {
@@ -85,6 +86,12 @@ body {
 
 .search-form button:hover {
   background: var(--primary-dark);
+}
+
+#suggestion-dropdown{
+  background-color: black;
+  color:white;
+  padding: 10px;
 }
 
 .hidden{

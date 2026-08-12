@@ -1,13 +1,16 @@
 import { getAutocompleteSuggestions } from '../services/getDataFromAPI.js'
 
-export async function locationSearchController(req, res, next){
+export async function locationSearchController(req, res, next){    
 
-    console.log('location-search route working')
-    
-    const searchStr = req.query?.q.trim();
+    try{
 
-    const response = await getAutocompleteSuggestions(searchStr)
-    
-    res.send(response)
+        const response = await getAutocompleteSuggestions(req.query?.q.trim())
+        res.status(200).send(response)
+
+    } catch (err) {
+
+        next(err)
+
+    }
 
 }

@@ -1,12 +1,38 @@
+import { useState, useEffect } from 'react'
+import { useDebounce } from '../hooks/useDebounce'
 import { getCurrentByCityName } from '../utils/getWeather.js'
+import { SuggestionsDropdown } from './SuggestionsDropdown'
 
 export function SearchCard({location, setLocation, setSearched, setWeatherData}){
+
+    const [suggestions, setSuggestions] = useState([])
+    const debouncedLocation = useDebounce(location, 300)
+
+    useEffect(() => {
+
+        if(!debouncedLocation.trim()){
+            setSuggestions([]);
+            return;
+        }
+
+        async function fetchSuggestions(){
+            try{
+                const response = await fetch(`http://localhost:8000/api/location-search?q=${debouncedLocation}`)
+                const data = await response.json()
+                setSuggestions(data)
+            } catch (err) {
+                console.error("Error fetching autocomplete suggestions", err)
+            }
+        }
+        fetchSuggestions();
+
+    }, [debouncedLocation])
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
         const data = await getCurrentByCityName(location)
-        console.log(data)
+        // console.log(data)
         setSearched(true)
         setWeatherData((currData) => {
             return {
@@ -25,7 +51,6 @@ export function SearchCard({location, setLocation, setSearched, setWeatherData})
                 windDirection: data.wind_direction_10m.value + data.wind_direction_10m.unit,
                 pressure: data.pressure_msl.value + data.pressure_msl.unit
             }
-        
         })
     }
 
@@ -36,18 +61,23 @@ export function SearchCard({location, setLocation, setSearched, setWeatherData})
 
             <form id="weatherForm" className="search-form" autoComplete="off"
             onSubmit={handleFormSubmit}>
-            <label className="sr-only" htmlFor="locationInput">Location</label>
-            <input
-                type="text"
-                id="locationInput"
-                name="location"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                placeholder="Enter city name"
-                required
-            />
-            <button type="submit">Search</button>
+                <label className="sr-only" htmlFor="locationInput">Location</label>
+                <input
+                    type="text"
+                    id="locationInput"
+                    name="location"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    placeholder="Enter city name"
+                    required
+                />
+                <button type="submit">Search</button>
             </form>
+
+            <SuggestionsDropdown
+                suggestions = {suggestions}
+            />
+
         </section>
     )
 

@@ -9,8 +9,6 @@ function App() {
   const [searched, setSearched] = useState(false)
   const [weatherData, setWeatherData] = useState('')
 
-  
-
   return (
     <main className="app">
       <SearchCard
