@@ -2,7 +2,7 @@ import { getCoordinatesAPI, getWeatherAPI } from './getDataFromAPI.js'
 
 export async function getWeatherData(location){
 
-    const coords = await getCoordinatesAPI(location)
+    const coords = await getCoordinatesAPI(location, 1)
 
     //if returned coords is empty throw 404 - location not found
     if(coords.length === 0){

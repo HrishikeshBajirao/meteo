@@ -1,8 +1,8 @@
-export const getCoordinatesAPI = async (cityName) => {
+export const getCoordinatesAPI = async (cityName, limit) => {
     const API_KEY = process.env.GEOCODING_API_KEY
     const url = new URL('https://api.openweathermap.org/geo/1.0/direct')
     url.searchParams.set('q', cityName)
-    url.searchParams.set('limit', '1')
+    url.searchParams.set('limit', limit)
     url.searchParams.set('appid', API_KEY)
 
     try{
@@ -66,6 +66,54 @@ export const getWeatherAPI = async (lat, lon) => {
         const error = new Error("Unable to reach Weather Service")
         error.statusCode = 502
         error.code = "WEATHER_API_UNAVAILABLE"
+
+        throw error
+
+    }
+}
+
+export const getAutocompleteSuggestions = async (str) => {
+    const API_KEY=process.env.GEOAPIFY_AUTOCOMPLETE_API_KEY
+    const url = new URL("https://api.geoapify.com/v1/geocode/autocomplete")
+    url.searchParams.set('text', str)
+    url.searchParams.set('apiKey', API_KEY)
+    url.searchParams.set('type', 'locality')
+    url.searchParams.set('lang', 'en')
+
+    try{
+        const response = await fetch(url)
+
+        if(!response.ok){
+
+            const error = new Error("Geoapify Autocomplete service failed")
+            error.statusCode = 502
+            error.code = 'GEOAPIFY_AUTOCOMPLETE_ERROR'
+
+            throw error
+
+        }
+
+        const data = await response.json()
+        
+        const suggestions = data.features.map((item) => (
+            {
+                name: item.properties.name, 
+                state: item.properties.state, 
+                country: item.properties.country
+            }
+        ))
+
+        return suggestions
+
+    } catch (err) {
+
+        if(err.statusCode){
+            throw err
+        }
+
+        const error = new Error("Unable to reach Geoapify Autocomplete service")
+        error.statusCode = 502
+        error.code = 'GEOAPIFY_AUTOCOPMLETE_SERVICE_UNAVAILABLE'
 
         throw error
 
