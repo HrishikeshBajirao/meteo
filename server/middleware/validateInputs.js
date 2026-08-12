@@ -12,7 +12,7 @@ export function validateLocation(source, key){
 
             const error = new Error(`Unknown query parameter: ${unknownKeys[0]}`)
             error.statusCode = 400
-            error.code = "UNKNOWN_QUERY_PARAMTER"
+            error.code = "UNKNOWN_QUERY_PARAMETER"
 
             return next(error)
 

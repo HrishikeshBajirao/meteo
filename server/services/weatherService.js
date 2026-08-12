@@ -1,8 +1,8 @@
-import { getCoordinates, getTemperature } from './getData.js'
+import { getCoordinatesAPI, getWeatherAPI } from './getDataFromAPI.js'
 
-export async function sendWeatherData(location){
+export async function getWeatherData(location){
 
-    const coords = await getCoordinates(location)
+    const coords = await getCoordinatesAPI(location)
 
     //if returned coords is empty throw 404 - location not found
     if(coords.length === 0){
@@ -19,7 +19,7 @@ export async function sendWeatherData(location){
     const lon = coords[0].lon
     const name = coords[0].name
         
-    const weatherData = await getTemperature(lat, lon)
+    const weatherData = await getWeatherAPI(lat, lon)
 
     const weatherObj = Object.fromEntries(
         Object.entries(weatherData.current).map(([key, value]) => [
