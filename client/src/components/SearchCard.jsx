@@ -56,7 +56,7 @@ export function SearchCard({location, setLocation, setSearched, setWeatherData})
                 lat: data.lat,
                 lon: data.lon,
                 interval: data.interval.value / 60 + ' mins',
-                humidity: data.relative_humidity_2m.value + data.relative_humidity_2m.value,
+                humidity: data.relative_humidity_2m.value + data.relative_humidity_2m.unit,
                 precipitation: data.precipitation.value + data.precipitation.unit,
                 rain: data.rain.value + data.rain.unit,
                 windSpeed: data.wind_speed_10m.value + data.wind_speed_10m.unit,

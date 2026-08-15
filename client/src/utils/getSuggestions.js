@@ -1,6 +1,9 @@
 export async function fetchSuggestions(debouncedLocation){
+    const url = new URL('/api/location-search', window.location.origin)
+    url.searchParams.set('q', debouncedLocation)
+
     try{
-        const response = await fetch(`http://localhost:8000/api/location-search?q=${debouncedLocation}`)
+        const response = await fetch(url)
 
         if(!response.ok){
             const errorBody = await response.text().catch(() => '');
