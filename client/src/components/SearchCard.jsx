@@ -2,38 +2,47 @@ import { useState, useEffect } from 'react'
 import { useDebounce } from '../hooks/useDebounce'
 import { getCurrentByCityName } from '../utils/getWeather.js'
 import { SuggestionsDropdown } from './SuggestionsDropdown'
+import { fetchSuggestions } from '../utils/getSuggestions.js'
 
 export function SearchCard({location, setLocation, setSearched, setWeatherData}){
 
     const [suggestions, setSuggestions] = useState([])
+    const [locationSelected, setLocationSelected] = useState(false)
     const debouncedLocation = useDebounce(location, 300)
 
     useEffect(() => {
 
+        if(locationSelected){
+            return
+        }
+
         if(!debouncedLocation.trim()){
-            setSuggestions([]);
             return;
         }
 
-        async function fetchSuggestions(){
-            try{
-                const response = await fetch(`http://localhost:8000/api/location-search?q=${debouncedLocation}`)
-                const data = await response.json()
-                setSuggestions(data)
-            } catch (err) {
-                console.error("Error fetching autocomplete suggestions", err)
-            }
+        async function getSuggestions() {
+            const suggestions = await fetchSuggestions(debouncedLocation)
+            setSuggestions(suggestions)
         }
-        fetchSuggestions();
 
-    }, [debouncedLocation])
+        getSuggestions()
+
+    }, [debouncedLocation, locationSelected])
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
-        const data = await getCurrentByCityName(location)
-        // console.log(data)
+        //if suggestions is not empty then use the cityname from the first item of the suggestions array
+        let cityName = location
+        if(suggestions.length > 0){
+            cityName = suggestions[0].name
+            setLocation(`${suggestions[0].name}, ${suggestions[0].state}, ${suggestions[0].country}`)
+        }
+
+        const data = await getCurrentByCityName(cityName)
         setSearched(true)
+        setSuggestions([])
+        setLocationSelected(true)
         setWeatherData((currData) => {
             return {
                 ...currData,
@@ -67,7 +76,10 @@ export function SearchCard({location, setLocation, setSearched, setWeatherData})
                     id="locationInput"
                     name="location"
                     value={location}
-                    onChange={(e) => setLocation(e.target.value)}
+                    onChange={(e) => {
+                        setLocation(e.target.value)
+                        setLocationSelected(false)
+                    }}
                     placeholder="Enter city name"
                     required
                 />
@@ -75,7 +87,13 @@ export function SearchCard({location, setLocation, setSearched, setWeatherData})
             </form>
 
             <SuggestionsDropdown
+                setLocation = {setLocation}
                 suggestions = {suggestions}
+                setSuggestions = {setSuggestions}
+                setSearched = {setSearched}
+                setWeatherData = {setWeatherData}
+                locationSelected = {locationSelected}
+                setLocationSelected = {setLocationSelected}
             />
 
         </section>

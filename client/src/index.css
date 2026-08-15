@@ -88,10 +88,23 @@ body {
   background: var(--primary-dark);
 }
 
-#suggestion-dropdown{
-  background-color: black;
-  color:white;
+.suggestion-dropdown{
   padding: 10px;
+}
+
+.suggestion-dropdown button {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  border: none;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.suggestion-dropdown button:hover {
+  background-color: #f3f4f6;
 }
 
 .hidden{

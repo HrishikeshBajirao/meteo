@@ -44,7 +44,7 @@ export function validateLocation(source, key){
         }
 
         //handle invalid location name
-        if(!/^[a-zA-Z]+$/.test(location)){
+        if(!/^[a-zA-Z\s]+$/.test(location)){
 
             const error = new Error("Location name contains invalid characters")
             error.statusCode = 400
