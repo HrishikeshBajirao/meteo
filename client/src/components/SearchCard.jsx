@@ -146,8 +146,15 @@ export function SearchCard({location, setLocation, setSearched, setWeatherData})
                     name="location"
                     value={location}
                     onChange={(e) => {
-                        setLocation(e.target.value)
+                        const value = e.target.value
+
+                        setLocation(value)
                         setLocationSelected(false)
+
+                        if(!value.trim()){
+                            setSuggestions([])
+                            setHighlightedIndex(-1)
+                        }
                     }}
                     onKeyDown={handleKeyDownOnInput}
                     placeholder="Enter city name"
