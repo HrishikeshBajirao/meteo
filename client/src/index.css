@@ -107,6 +107,10 @@ body {
   background-color: #f3f4f6;
 }
 
+button.highlighted{
+  background-color: #f3f4f6;
+}
+
 .hidden{
   display: none;
 }

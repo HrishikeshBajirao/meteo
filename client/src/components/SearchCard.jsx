@@ -8,8 +8,10 @@ export function SearchCard({location, setLocation, setSearched, setWeatherData})
 
     const [suggestions, setSuggestions] = useState([])
     const [locationSelected, setLocationSelected] = useState(false)
+    const [highlightedIndex, setHighlightedIndex] = useState(-1)
     const debouncedLocation = useDebounce(location, 300)
 
+    //debounce input to capture while user is typing
     useEffect(() => {
 
         if(locationSelected){
@@ -29,6 +31,7 @@ export function SearchCard({location, setLocation, setSearched, setWeatherData})
 
     }, [debouncedLocation, locationSelected])
 
+    //handle when input form is submitted by hitting enter or clicking hte "Search" submit button
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
@@ -43,6 +46,72 @@ export function SearchCard({location, setLocation, setSearched, setWeatherData})
         setSearched(true)
         setSuggestions([])
         setLocationSelected(true)
+        setWeatherData((currData) => {
+            return {
+                ...currData,
+                location: data.location,
+                time: data.time.value.split('T').pop(),
+                temperature: data.temperature_2m.value + data.temperature_2m.unit,
+                day_night: data.is_day.value ? "Day" : "Night",
+                lat: data.lat,
+                lon: data.lon,
+                interval: data.interval.value / 60 + ' mins',
+                humidity: data.relative_humidity_2m.value + data.relative_humidity_2m.value,
+                precipitation: data.precipitation.value + data.precipitation.unit,
+                rain: data.rain.value + data.rain.unit,
+                windSpeed: data.wind_speed_10m.value + data.wind_speed_10m.unit,
+                windDirection: data.wind_direction_10m.value + data.wind_direction_10m.unit,
+                pressure: data.pressure_msl.value + data.pressure_msl.unit
+            }
+        })
+    }
+
+    //handle key events on the input element
+    const handleKeyDownOnInput = (e) => {
+        
+        // if dropdown is empty then return
+        if(suggestions.length === 0){
+            return
+        }
+
+        if(e.key === "ArrowDown"){
+            e.preventDefault()
+
+            setHighlightedIndex((currIndex) => {
+                if(currIndex < suggestions.length - 1){
+                    return currIndex + 1
+                }
+
+                return 0
+            })
+        }
+
+        if(e.key === "ArrowUp"){
+            e. preventDefault()
+
+            setHighlightedIndex((currIndex) => {
+                if(currIndex > 0){
+                    return currIndex - 1
+                }
+                return suggestions.length - 1
+            })
+        }
+
+        if (e.key === "Enter" && highlightedIndex >= 0) {
+            e.preventDefault()
+
+            const selected = suggestions[highlightedIndex]
+            handleSuggestionClick(selected)
+        }
+    }
+
+    //handle click on the suggestion dropdown item
+    const handleSuggestionClick = async (suggestion) => {
+        const data = await getCurrentByCityName(suggestion.name)
+        setLocationSelected(true)
+        setSuggestions([])
+        setSearched(true)
+        setLocation(`${suggestion.name}, ${suggestion.state}, ${suggestion.country}`)
         setWeatherData((currData) => {
             return {
                 ...currData,
@@ -80,6 +149,7 @@ export function SearchCard({location, setLocation, setSearched, setWeatherData})
                         setLocation(e.target.value)
                         setLocationSelected(false)
                     }}
+                    onKeyDown={handleKeyDownOnInput}
                     placeholder="Enter city name"
                     required
                 />
@@ -87,13 +157,10 @@ export function SearchCard({location, setLocation, setSearched, setWeatherData})
             </form>
 
             <SuggestionsDropdown
-                setLocation = {setLocation}
+                handleSuggestionClick = {handleSuggestionClick}
                 suggestions = {suggestions}
-                setSuggestions = {setSuggestions}
-                setSearched = {setSearched}
-                setWeatherData = {setWeatherData}
                 locationSelected = {locationSelected}
-                setLocationSelected = {setLocationSelected}
+                highlightedIndex = {highlightedIndex}
             />
 
         </section>
