@@ -1,13 +1,16 @@
 import { useState } from 'react'
 import { SearchCard } from './components/SearchCard.jsx'
 import { WeatherCard } from './components/WeatherCard.jsx'
+import { WeatherCardSkeleton } from './components/WeatherCardSkeleton.jsx'
 import './index.css'
 
 function App() {
 
   const [location, setLocation] = useState('')
-  const [searched, setSearched] = useState(false)
   const [weatherData, setWeatherData] = useState('')
+  const [searched, setSearched] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   return (
     <main className="app">
@@ -16,12 +19,17 @@ function App() {
         setLocation = {setLocation}
         setSearched = {setSearched}
         setWeatherData = {setWeatherData}
+        setLoading = {setLoading}
+        error = {error}
+        setError = {setError}
       />
 
-      <WeatherCard
-        searched = {searched}
+      {loading && <WeatherCardSkeleton />}
+
+      {!loading && !error && searched && <WeatherCard
         weatherData = {weatherData}
-      />
+      />}
+      
     </main>
   )
 }

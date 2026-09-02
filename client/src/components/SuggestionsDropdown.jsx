@@ -8,7 +8,8 @@ export function SuggestionsDropdown({handleSuggestionClick, suggestions,
                     key={suggestion.name + suggestion.state} 
                     onClick={() => handleSuggestionClick(suggestion)}
                     className={highlightedIndex === index ? "highlighted" : ""}
-                >{suggestion.name}, {suggestion.state}, {suggestion.country}</button>                            ))}
+                >{suggestion.name}, {suggestion.state}, {suggestion.country}</button>
+            ))}
         </div>
     )
 

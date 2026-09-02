@@ -88,6 +88,12 @@ body {
   background: var(--primary-dark);
 }
 
+.error-line{
+  color: red;
+  width: 100%;
+  padding: 10px;
+}
+
 .suggestion-dropdown{
   padding: 10px;
 }

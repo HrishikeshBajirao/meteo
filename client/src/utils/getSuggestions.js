@@ -1,22 +1,19 @@
 export async function fetchSuggestions(debouncedLocation){
-    const url = new URL('/api/location-search', window.location.origin)
+    const url = new URL('http://localhost:8000/api/location-search')
     url.searchParams.set('q', debouncedLocation)
 
-    try{
-        const response = await fetch(url)
+    const response = await fetch(url)
+    const data = await response.json()
 
-        if(!response.ok){
-            const errorBody = await response.text().catch(() => '');
-            throw new Error(`Request failed with status ${response.status}: ${errorBody}`);
-        }
+    if(!response.ok){
+        const error = new Error(
+            data?.error?.message || "Unable to fetch weather"
+        )
+        error.status = response.status
+        error.code = data?.error?.code || "WEATHER_REQUEST_FAILED"
 
-        const data = await response.json()
-        return data
-    } catch (err) {
-        if(!err.status){
-            err.message = 'Network error, please check your connection.'
-        }
-        console.error("Error fetching autocomplete suggestions", err)
-        throw err
+        throw error
     }
+
+    return data
 }

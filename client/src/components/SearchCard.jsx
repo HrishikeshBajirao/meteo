@@ -3,9 +3,11 @@ import { useDebounce } from '../hooks/useDebounce'
 import { getCurrentByCityName } from '../utils/getWeather.js'
 import { SuggestionsDropdown } from './SuggestionsDropdown'
 import { fetchSuggestions } from '../utils/getSuggestions.js'
+import { ErrorLineComponent } from './ErrorLineComponent.jsx'
 
-export function SearchCard({location, setLocation, setSearched, setWeatherData}){
+export function SearchCard({location, setLocation, setSearched, setWeatherData, setLoading, error, setError}){
 
+    
     const [suggestions, setSuggestions] = useState([])
     const [locationSelected, setLocationSelected] = useState(false)
     const [highlightedIndex, setHighlightedIndex] = useState(-1)
@@ -23,13 +25,18 @@ export function SearchCard({location, setLocation, setSearched, setWeatherData})
         }
 
         async function getSuggestions() {
-            const suggestions = await fetchSuggestions(debouncedLocation)
-            setSuggestions(suggestions)
+            try{
+                setError(null)
+                const suggestions = await fetchSuggestions(debouncedLocation)
+                setSuggestions(suggestions)
+            } catch (error) {
+                setError(error)
+            }
         }
 
         getSuggestions()
 
-    }, [debouncedLocation, locationSelected])
+    }, [debouncedLocation, locationSelected, setError])
 
     //handle when input form is submitted by hitting enter or clicking hte "Search" submit button
     const handleFormSubmit = async (e) => {
@@ -42,28 +49,37 @@ export function SearchCard({location, setLocation, setSearched, setWeatherData})
             setLocation(`${suggestions[0].name}, ${suggestions[0].state}, ${suggestions[0].country}`)
         }
 
-        const data = await getCurrentByCityName(cityName)
-        setSearched(true)
-        setSuggestions([])
-        setLocationSelected(true)
-        setWeatherData((currData) => {
-            return {
-                ...currData,
-                location: data.location,
-                time: data.time.value.split('T').pop(),
-                temperature: data.temperature_2m.value + data.temperature_2m.unit,
-                day_night: data.is_day.value ? "Day" : "Night",
-                lat: data.lat,
-                lon: data.lon,
-                interval: data.interval.value / 60 + ' mins',
-                humidity: data.relative_humidity_2m.value + data.relative_humidity_2m.unit,
-                precipitation: data.precipitation.value + data.precipitation.unit,
-                rain: data.rain.value + data.rain.unit,
-                windSpeed: data.wind_speed_10m.value + data.wind_speed_10m.unit,
-                windDirection: data.wind_direction_10m.value + data.wind_direction_10m.unit,
-                pressure: data.pressure_msl.value + data.pressure_msl.unit
-            }
-        })
+        try{
+            setError(null)
+            setLoading(true)
+            const data = await getCurrentByCityName(cityName)
+            setSearched(true)
+            setSuggestions([])
+            setLocationSelected(true)
+            setWeatherData((currData) => {
+                return {
+                    ...currData,
+                    location: data.location,
+                    time: data.time.value.split('T').pop(),
+                    temperature: data.temperature_2m.value + data.temperature_2m.unit,
+                    day_night: data.is_day.value ? "Day" : "Night",
+                    lat: data.lat,
+                    lon: data.lon,
+                    interval: data.interval.value / 60 + ' mins',
+                    humidity: data.relative_humidity_2m.value + data.relative_humidity_2m.unit,
+                    precipitation: data.precipitation.value + data.precipitation.unit,
+                    rain: data.rain.value + data.rain.unit,
+                    windSpeed: data.wind_speed_10m.value + data.wind_speed_10m.unit,
+                    windDirection: data.wind_direction_10m.value + data.wind_direction_10m.unit,
+                    pressure: data.pressure_msl.value + data.pressure_msl.unit
+                }
+            })
+        } catch(error) {
+            setError(error)
+        } finally {
+            setLoading(false)
+        }
+
     }
 
     //handle key events on the input element
@@ -107,35 +123,45 @@ export function SearchCard({location, setLocation, setSearched, setWeatherData})
 
     //handle click on the suggestion dropdown item
     const handleSuggestionClick = async (suggestion) => {
-        const data = await getCurrentByCityName(suggestion.name)
-        setLocationSelected(true)
-        setSuggestions([])
-        setSearched(true)
-        setLocation(`${suggestion.name}, ${suggestion.state}, ${suggestion.country}`)
-        setWeatherData((currData) => {
-            return {
-                ...currData,
-                location: data.location,
-                time: data.time.value.split('T').pop(),
-                temperature: data.temperature_2m.value + data.temperature_2m.unit,
-                day_night: data.is_day.value ? "Day" : "Night",
-                lat: data.lat,
-                lon: data.lon,
-                interval: data.interval.value / 60 + ' mins',
-                humidity: data.relative_humidity_2m.value + data.relative_humidity_2m.value,
-                precipitation: data.precipitation.value + data.precipitation.unit,
-                rain: data.rain.value + data.rain.unit,
-                windSpeed: data.wind_speed_10m.value + data.wind_speed_10m.unit,
-                windDirection: data.wind_direction_10m.value + data.wind_direction_10m.unit,
-                pressure: data.pressure_msl.value + data.pressure_msl.unit
-            }
-        })
+
+        try{
+            setError(null)
+            setLoading(true)
+            const data = await getCurrentByCityName(suggestion.name)
+            setLocationSelected(true)
+            setSuggestions([])
+            setSearched(true)
+            setLocation(`${suggestion.name}, ${suggestion.state}, ${suggestion.country}`)
+            setWeatherData((currData) => {
+                return {
+                    ...currData,
+                    location: data.location,
+                    time: data.time.value.split('T').pop(),
+                    temperature: data.temperature_2m.value + data.temperature_2m.unit,
+                    day_night: data.is_day.value ? "Day" : "Night",
+                    lat: data.lat,
+                    lon: data.lon,
+                    interval: data.interval.value / 60 + ' mins',
+                    humidity: data.relative_humidity_2m.value + data.relative_humidity_2m.value,
+                    precipitation: data.precipitation.value + data.precipitation.unit,
+                    rain: data.rain.value + data.rain.unit,
+                    windSpeed: data.wind_speed_10m.value + data.wind_speed_10m.unit,
+                    windDirection: data.wind_direction_10m.value + data.wind_direction_10m.unit,
+                    pressure: data.pressure_msl.value + data.pressure_msl.unit
+                }
+            })
+        } catch(error) {
+            setError(error)
+        } finally {
+            setLoading(false)
+        }
+
     }
 
     return (
         <section className="search-card">
-            <h1>Weather App</h1>
-            <p>Simple frontend to display weather data from your backend.</p>
+            <h1>Meteo - Weather & Forecast</h1>
+            <p></p>
 
             <form id="weatherForm" className="search-form" autoComplete="off"
             onSubmit={handleFormSubmit}>
@@ -163,12 +189,17 @@ export function SearchCard({location, setLocation, setSearched, setWeatherData})
                 <button type="submit">Search</button>
             </form>
 
-            <SuggestionsDropdown
+            {error && <ErrorLineComponent 
+                error={error}
+            />}
+
+            {!error && <SuggestionsDropdown
                 handleSuggestionClick = {handleSuggestionClick}
                 suggestions = {suggestions}
                 locationSelected = {locationSelected}
                 highlightedIndex = {highlightedIndex}
-            />
+            />}
+
 
         </section>
     )

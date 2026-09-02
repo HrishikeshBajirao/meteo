@@ -1,21 +1,26 @@
 export async function getCurrentByCityName(location){
-    try {
-        const response = await fetch('/api/current/submit', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({location})
-        })
 
-        if(!response.ok){
-            const errorBody = await response.text().catch(() => '');
-            throw new Error(`Request failed with status ${response.status}: ${errorBody}`);
-        }
+    console.log(location)//
 
-        const data = await response.json();
-        return data;
-    } catch (err) {
-        console.error("Error fetching the weather: ", err);
-        throw err;
-    }}
+    const response = await fetch('http://localhost:8000/api/current/submit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({location})
+    })
+
+    const data = await response.json();
+
+    if(!response.ok){
+        const error = new Error(
+            data?.error?.message || "Unable to fetch weather"
+        )
+        error.status = response.status
+        error.code = data?.error?.code || "WEATHER_REQUEST_FAILED"
+
+        throw error;
+    }
+
+    return data;
+}
