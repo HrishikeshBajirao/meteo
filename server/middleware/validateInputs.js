@@ -1,9 +1,9 @@
-export function validateLocation(source, key){
+export function validateLocation(source, ...key){
 
     return function (req, res, next){
 
         //handle unknown or wrong/invalid query parameter used
-        const allowedKeys = [key]
+        const allowedKeys = [...key]
 
         const unknownKeys = Object.keys(req[source])
             .filter(param => !allowedKeys.includes(param))
@@ -19,7 +19,7 @@ export function validateLocation(source, key){
         }
 
         //extract location value from params
-        const location = req[source][key]?.trim()
+        const location = req[source][key[0]]?.trim()
 
         //handle missing location name - 400 Bad request
         if(!location){

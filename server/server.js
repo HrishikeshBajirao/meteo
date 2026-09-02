@@ -3,6 +3,7 @@ import cors from 'cors'
 import dotenv from "dotenv";
 import { apiCurrentRouter } from './routes/apiCurrentRoutes.js'
 import { apiLocationSearchRouter } from './routes/apiLocationSearchRoutes.js'
+import { apiForecastRouter } from './routes/apiForecastRoutes.js'
 import errorHandler from './middleware/errorHandler.js'
 import notFound from './middleware/notFound.js'
 
@@ -16,6 +17,7 @@ app.use(express.json())
 
 app.use('/api/current', apiCurrentRouter)
 app.use('/api/location-search', apiLocationSearchRouter)
+app.use('/api/forecast', apiForecastRouter)
 
 //route not found
 app.use(notFound)

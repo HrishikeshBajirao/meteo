@@ -1,6 +1,6 @@
 import express from 'express'
-import { locationPathParamReq, locationQueryParamReq, postSubmitReq } from '../controllers/apiCurrentControllers.js'
 import { validateLocation } from '../middleware/validateInputs.js'
+import { locationPathParamReq, locationQueryParamReq, postSubmitReq } from '../controllers/apiCurrentControllers.js'
 
 export const apiCurrentRouter = express.Router()
 

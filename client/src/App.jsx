@@ -24,7 +24,7 @@ function App() {
         setError = {setError}
       />
 
-      {loading && <WeatherCardSkeleton />}
+      {loading && !error && <WeatherCardSkeleton />}
 
       {!loading && !error && searched && <WeatherCard
         weatherData = {weatherData}
