@@ -1,5 +1,7 @@
 # ☁️ Meteo
 
+## 🌐Live Site: https://hrishikeshbajirao.github.io/meteo/
+
 Meteo is a full-stack weather application that provides a clean REST API and a modern React-based user interface for retrieving and visualizing weather information.
 
 Originally built from scratch using Node.js' native HTTP module, the project has since been migrated to Express.js and React to provide a scalable full-stack architecture while continuing to serve as a learning project focused on backend engineering, frontend development, API integration, and software architecture.
@@ -10,18 +12,14 @@ Originally built from scratch using Node.js' native HTTP module, the project has
 
 ### Current
 
-- 🌍 Search weather by city
-- 📝 React-based search form
-- 📤 Form submission using HTTP POST
-- 📍 Automatic geocoding
-- 🌤️ Current weather conditions
-- 📄 Dynamic weather card rendering
-- ⚛️ React frontend
-- 🚀 Express.js backend
-- 📦 REST API
-- 📱 Responsive user interface
-- ⚠️ Error handling
-- 🔐 Environment variable configuration
+- 🌍 Current weather by city
+- 🔎 Location autocomplete
+- ⚡ Debounced search
+- ⌨️ Keyboard navigation
+- ⏳ Loading states
+- ⚠️ Graceful error handling
+- 📱 Responsive UI
+- 🔐 Environment-based configuration
 
 ---
 
@@ -56,12 +54,6 @@ GET /api/current/city/Mumbai
 
 ```http
 POST /api/submit
-```
-
-**Content-Type**
-
-```text
-application/x-www-form-urlencoded
 ```
 
 **Body**
@@ -153,7 +145,7 @@ This project is actively maintained and tracked using GitHub and WakaTime.
 ## Installation
 
 ```bash
-git clone <repo>
+git clone https://github.com/HrishikeshBajirao/meteo
 
 cd meteo
 

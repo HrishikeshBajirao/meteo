@@ -4,6 +4,31 @@ All notable changes to this project will be documented here.
 
 ---
 
+## [0.3.0] - 2026-09-02
+
+### Added
+
+- Location autocomplete using Geoapify
+- Debounced location search
+- Keyboard navigation for suggestions
+- Loading skeletons
+- Frontend error handling
+- Backend validation middleware
+- Centralized backend error handling
+- Route-not-found handling
+- Third-party API error handling
+- Responsive mobile improvements
+
+### Changed
+
+- Refactored React frontend into reusable components
+- Improved search and autocomplete UX
+- Improved loading and error handling
+- Separated autocomplete location search from weather location resolution
+- Improved backend separation between routes, controllers, services, and middleware
+
+---
+
 ## [0.2.0] - 2026-08-06
 
 ### Added

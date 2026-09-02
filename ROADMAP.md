@@ -27,7 +27,7 @@
 
 ---
 
-## v0.3.0 🚧 Better User Experience
+## v0.3.0 ✅ Better User Experience
 
 - Location autocomplete
 - Debounced search
