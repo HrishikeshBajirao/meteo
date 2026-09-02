@@ -58,3 +58,40 @@ export function validateLocation(source, ...key){
     }
 
 }
+
+export function validateDate(source, ...key){
+    
+    return function (req, res, next){
+        //handle unknown or wrong/invalid query parameter used
+        const allowedKeys = [...key]
+
+        const unknownKeys = Object.keys(req[source])
+            .filter(param => !allowedKeys.includes(param))
+
+        if(unknownKeys.length > 0){
+
+            const error = new Error(`Unknown query parameter: ${unknownKeys[0]}`)
+            error.statusCode = 400
+            error.code = "UNKNOWN_QUERY_PARAMETER"
+
+            return next(error)
+
+        }
+
+        //extract date value from params
+        const date = req[source][key[1]]?.trim()
+        
+        //handle invalid date inputs
+        if(!/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/.test(date)){
+
+            const error = new Error("Invalid Date Format: Make sure date format is YYYY-MM-DD")
+            error.statusCode = 400
+            error.code = "INVALID_DATE"
+
+            return next(error)
+        }
+
+        next()
+    }
+
+}
