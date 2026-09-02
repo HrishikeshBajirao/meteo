@@ -2,7 +2,7 @@ export async function getCurrentByCityName(location){
 
     console.log(location)//
 
-    const response = await fetch('http://localhost:8000/api/current/submit', {
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/current/submit`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

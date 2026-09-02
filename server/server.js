@@ -8,11 +8,16 @@ import errorHandler from './middleware/errorHandler.js'
 import notFound from './middleware/notFound.js'
 
 dotenv.config()
-const port = process.env.PORT
+const PORT = process.env.PORT || 8001
 
 const app = express()
 
-app.use(cors())
+app.use(cors({
+    origin: [
+        "http://localhost:5173",
+        "https://hrishikeshbajirao.github.io"
+    ]
+}));
 app.use(express.json())
 
 app.use('/api/current', apiCurrentRouter)
@@ -24,4 +29,4 @@ app.use(notFound)
 //centralized error handler
 app.use(errorHandler)
 
-app.listen(port, () => console.log(`Server listening on ${port}`))
+app.listen(PORT, () => console.log(`Server listening on ${PORT}`))

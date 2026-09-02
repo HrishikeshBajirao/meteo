@@ -1,5 +1,5 @@
 export async function fetchSuggestions(debouncedLocation){
-    const url = new URL('http://localhost:8000/api/location-search')
+    const url = new URL(`${import.meta.env.VITE_API_BASE_URL}/api/location-search`)
     url.searchParams.set('q', debouncedLocation)
 
     const response = await fetch(url)
